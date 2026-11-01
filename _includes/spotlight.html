@@ -1,0 +1,17 @@
+{% assign item = include.item %}
+{% assign has_details = false %}{% if item.bet_market and item.bet_market != '' %}{% assign has_details = true %}{% elsif item.arguments.size > 0 %}{% assign has_details = true %}{% endif %}
+<article class="spotlight-card featured{% unless has_details %} spotlight-simple{% endunless %}" data-sport="{{ item.sport | escape }}">
+  <div class="spotlight-main{% if item.cover_image and item.cover_image != '' %} with-cover{% endif %}">
+    {% if item.cover_image and item.cover_image != '' %}<img class="spotlight-cover" src="{{ item.cover_image | relative_url | escape }}" alt="" width="1200" height="675" loading="lazy" decoding="async" referrerpolicy="no-referrer">{% endif %}
+    <div class="spotlight-meta"><span class="sport-label">{% if item.sport == 'HOCKEY' %}{% include icon.html name='hockey' %}Хоккей{% else %}{% include icon.html name='football' %}Футбол{% endif %}</span><span class="spotlight-label">Главный разбор</span></div>
+    <p class="spotlight-tournament">{{ item.tournament | escape }} · {{ item.match_date | date: '%d.%m.%Y, %H:%M' }} МСК</p>
+    <h3><a href="{{ item.url | relative_url }}"><span>{{ item.home_team | escape }}</span><span class="spotlight-versus" aria-hidden="true">—</span><span>{{ item.away_team | escape }}</span></a></h3>
+    <p class="spotlight-excerpt">{{ item.excerpt | escape }}</p>
+  </div>
+  <div class="spotlight-detail">
+    {% if item.bet_market and item.bet_market != '' %}<div class="spotlight-choice"><div><span class="eyebrow">Аналитический выбор</span><h4>{{ item.bet_market | escape }}</h4></div><strong>{% include odds.html value=item.bet_odds %}</strong></div>{% endif %}
+    {% if item.arguments.size > 0 %}<ul class="arguments">{% for argument in item.arguments limit:3 %}<li>{{ argument | escape }}</li>{% endfor %}</ul>{% endif %}
+    {% if item.bet_result and item.bet_result != 'PENDING' %}{% include result.html value=item.bet_result %}{% endif %}
+    <a class="card-read" href="{{ item.url | relative_url }}">Открыть полный разбор {% include icon.html name='arrow-right' %}</a>
+  </div>
+</article>

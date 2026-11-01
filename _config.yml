@@ -1,0 +1,33 @@
+title: AiBet Money
+description: Спортивная аналитика футбола и хоккея. Аргументы, статистика и разборы матчей.
+lang: ru-RU
+timezone: Europe/Moscow
+encoding: utf-8
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+collections:
+  analyses:
+    output: true
+    permalink: /analysis/:name/
+defaults:
+  - scope:
+      path: ""
+      type: analyses
+    values:
+      layout: article
+      author: Аналитический отдел AiBet Money
+plugins:
+  - jekyll-github-metadata
+telegram_url: https://t.me/aibetmoney
+# Необязательно: ссылка на существующий бот калькулятора.
+calculator_url: ""
+# url и baseurl GitHub Pages определяет автоматически. Не задавайте их без необходимости.
+exclude:
+  - README.md
+  - START_HERE.html
+  - CHECK_REPORT.md
+  - _examples
+  - tools
+  - dist

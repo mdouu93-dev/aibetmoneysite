@@ -1,0 +1,9 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% assign paths = '/,/football/,/hockey/,/about/,/methodology/,/contacts/' | split: ',' %}{% for path in paths %}<url><loc>{{ path | absolute_url | xml_escape }}</loc></url>{% endfor %}
+{% assign visible = site.analyses | where_exp: 'entry', 'entry.published != false' %}{% for item in visible %}<url><loc>{{ item.url | absolute_url | xml_escape }}</loc><lastmod>{{ item.updated_at | default: item.published_at | date_to_xmlschema }}</lastmod></url>{% endfor %}
+</urlset>

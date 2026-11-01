@@ -1,0 +1,15 @@
+---
+layout: null
+permalink: /llms.txt
+---
+# AiBet Money
+> Аналитические разборы футбольных и хоккейных матчей. 18+.
+
+- [Методология]({{ '/methodology/' | absolute_url }})
+- [О проекте]({{ '/about/' | absolute_url }})
+- [Telegram]({{ site.data.settings.telegram_url }})
+
+## Материалы
+{% assign entries = site.analyses | where_exp: 'entry', 'entry.published != false' | sort: 'published_at' | reverse %}{% for item in entries %}
+- [{{ item.title | strip_newlines }}]({{ item.url | absolute_url }}): {{ item.excerpt | strip_newlines }}
+{% endfor %}

@@ -1,0 +1,16 @@
+{% assign item = include.item %}
+{% assign card_heading = 'h3' %}{% if include.spotlight %}{% assign card_heading = 'h2' %}{% endif %}
+<article class="match-card{% if include.compact %} compact-card{% endif %}{% if include.featured %} featured{% endif %}{% if include.spotlight %} spotlight-card{% endif %}" data-sport="{{ item.sport | escape }}">
+  {% if item.cover_image and item.cover_image != '' and include.spotlight != true %}
+  <a class="card-cover" href="{{ item.url | relative_url }}" tabindex="-1" aria-hidden="true"><img src="{{ item.cover_image | relative_url | escape }}" alt="" width="640" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer"></a>
+  {% endif %}
+  <div class="card-body">
+    <div class="card-topline"><span class="sport-label">{% if item.sport == 'HOCKEY' %}{% include icon.html name='hockey' %}Хоккей{% else %}{% include icon.html name='football' %}Футбол{% endif %}</span>{% if item.bet_result and item.bet_result != 'PENDING' %}{% include result.html value=item.bet_result %}{% endif %}</div>
+    <p class="card-tournament">{{ item.tournament | escape }}{% if item.match_date %}<span>{{ item.match_date | date: '%d.%m.%Y, %H:%M' }} МСК</span>{% endif %}</p>
+    <{{ card_heading }}><a href="{{ item.url | relative_url }}">{{ item.home_team | escape }} <span class="match-dash">—</span> {{ item.away_team | escape }}</a></{{ card_heading }}>
+    {% if include.compact != true %}{% if item.odds_home or item.odds_draw or item.odds_away %}<div class="odds-row"><div><small>П1</small><b>{% include odds.html value=item.odds_home %}</b></div><div><small>X</small><b>{% include odds.html value=item.odds_draw %}</b></div><div><small>П2</small><b>{% include odds.html value=item.odds_away %}</b></div></div>{% endif %}{% endif %}
+    {% if item.bet_market and item.bet_market != '' %}<div class="bet"><div><small>Аналитический выбор</small><strong>{{ item.bet_market | escape }}</strong></div><b>{% include odds.html value=item.bet_odds %}</b></div>{% endif %}
+    {% if item.arguments.size > 0 and include.compact != true %}<ul class="arguments">{% for argument in item.arguments limit:3 %}<li>{{ argument | escape }}</li>{% endfor %}</ul>{% elsif item.excerpt and item.excerpt != '' %}<p class="card-excerpt">{{ item.excerpt | escape }}</p>{% endif %}
+    <a class="card-read" href="{{ item.url | relative_url }}">Читать разбор {% include icon.html name='arrow-right' %}</a>
+  </div>
+</article>

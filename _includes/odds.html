@@ -1,0 +1,1 @@
+{%- if include.value == nil or include.value == '' -%}—{%- else -%}{%- assign scaled = include.value | times: 100 | round -%}{%- assign whole = scaled | divided_by: 100 -%}{%- assign cents = scaled | modulo: 100 -%}{{ whole }}.{%- if cents < 10 -%}0{%- endif -%}{{ cents }}{%- endif -%}

@@ -1,0 +1,7 @@
+---
+layout: default
+---
+<header class="page-heading"><p class="eyebrow">AIBET MONEY · АНАЛИТИКА</p><h1>{{ page.title | escape }}</h1><p>{{ page.description | escape }}</p></header>
+{% assign entries = site.analyses | where_exp: 'entry', 'entry.published != false' | sort: 'published_at' | reverse %}
+{% if page.sport %}{% assign entries = entries | where: 'sport', page.sport %}{% endif %}
+{% if entries.size > 0 %}<div class="card-grid">{% for item in entries %}{% assign first = forloop.first %}{% include card.html item=item featured=first %}{% endfor %}</div>{% else %}<section class="empty"><h2>Готовим новые разборы</h2><p>Пока следите за обновлениями в нашем Telegram-канале.</p><a class="button secondary" href="{{ site.data.settings.telegram_url | escape }}" target="_blank" rel="noopener noreferrer">Открыть канал ↗</a></section>{% endif %}

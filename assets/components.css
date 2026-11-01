@@ -1,0 +1,165 @@
+/* AiBet Money v1.1: shared brand components. */
+:root {
+  --bg: #0b1220;
+  --surface: #111a2c;
+  --surface-raised: #18243a;
+  --raised: var(--surface-raised);
+  --border: #223049;
+  --border-control: #56668a;
+  --text: #e2e8f0;
+  --text-heading: #f6f8fb;
+  --text-body: #c3ccda;
+  --text-muted: #9aa7bc;
+  --text-subtle: #7d8ba3;
+  --muted: var(--text-muted);
+  --action: #e2e8f0;
+  --value: #ddac5e;
+  --gold: var(--value);
+  --focus: #e8c27f;
+  --pos: #5fd7a8;
+  --neg: #f0716a;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+[hidden] { display: none !important; }
+html { scroll-padding-top: 32px; }
+body { font: 400 16px/1.5 Inter, Arial, sans-serif; }
+.container { width: min(1280px, calc(100% - 96px)); }
+h1, h2, h3 { color: var(--text-heading); overflow-wrap: anywhere; }
+h2 { font-size: 32px; line-height: 1.25; letter-spacing: -.015em; }
+h3 { font-weight: 600; }
+p { color: var(--text-body); }
+.icon { flex: 0 0 auto; display: inline-block; width: 20px; height: 20px; vertical-align: middle; }
+.eyebrow { font: 600 12px/1.4 Montserrat, Arial, sans-serif; letter-spacing: .16em; color: var(--text-muted); }
+.button { min-height: 48px; padding: 12px 20px; gap: 12px; border-radius: 4px; line-height: 1.4; transition: background 120ms ease-out, border-color 120ms ease-out; }
+.button .icon { width: 18px; height: 18px; }
+.button.secondary { border-color: var(--border-control); }
+.button.secondary:hover { border-color: var(--text-muted); }
+.text-link { display: inline-flex; gap: 12px; align-items: center; min-height: 44px; font-size: 14px; font-weight: 500; color: var(--text-body); }
+.text-link:hover { color: var(--text-heading); }
+.text-link .icon { width: 18px; height: 18px; transition: transform 120ms ease-out; }
+.text-link:hover .icon { transform: translateX(3px); }
+:where(a, button, input, textarea, select, [tabindex]):focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.header { background: var(--bg); position: relative; z-index: 5; }
+.header-inner { min-height: 88px; gap: 32px; flex-wrap: nowrap; }
+.header nav { font-size: 14px; gap: 28px; }
+.header nav a { display: inline-flex; align-items: center; min-height: 44px; position: relative; }
+.header nav a[aria-current] { color: var(--text-heading); }
+.header nav a[aria-current]:after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--text-body); }
+.telegram { margin-left: 0; }
+.logo { gap: 12px; }
+.logo > .logo-wordmark { display: flex; flex-direction: column; align-items: center; }
+.logo b { font-weight: 600; font-size: 25px; letter-spacing: -.01em; line-height: 1.2; }
+.logo .logo-i { display: inline; position: relative; }
+.logo-i:after { content: ''; position: absolute; width: .15em; height: .15em; border-radius: 50%; background: var(--value); top: .18em; left: 50%; transform: translateX(-50%); }
+.logo small { margin-top: 3px; font: 500 6.5px/1.2 Montserrat, sans-serif; color: var(--text-body); letter-spacing: .5em; padding-left: .5em; }
+.nav-toggle { display: none; }
+.main { padding-top: 48px; padding-bottom: 80px; }
+.card-grid { gap: 24px; align-items: stretch; }
+.match-card { min-width: 0; padding: 0; border-radius: 8px; background: var(--surface); transition: border-color 120ms ease-out; }
+.match-card:hover { border-color: #33425e; }
+.match-card.featured { border-color: var(--border-control); }
+.featured:after { width: 42px; height: 20px; }
+.card-cover { display: block; aspect-ratio: 16/9; overflow: hidden; background: var(--raised); border-bottom: 1px solid var(--border); }
+.card-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card-body { display: flex; flex-direction: column; flex: 1; padding: 24px; min-width: 0; }
+.card-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.sport-label { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 12px; font-weight: 500; }
+.sport-label .icon { width: 18px; height: 18px; }
+.card-tournament { color: var(--text-muted); font-size: 12px; line-height: 1.6; margin: 0 0 8px; }
+.card-tournament span { display: block; color: var(--text-subtle); }
+.match-card h3, .match-card h2 { margin: 0 0 24px; font-size: 24px; line-height: 1.35; letter-spacing: -.01em; font-weight: 600; }
+.match-dash { color: var(--text-subtle); white-space: nowrap; }
+.odds-row { gap: 8px; margin-bottom: 16px; }
+.odds-row > div { padding: 8px 12px; border-color: var(--border); }
+.odds-row small, .bet small { font: 500 12px/1.4 Inter, sans-serif; color: var(--text-muted); }
+.odds-row b { display: block; margin-top: 4px; font: 600 18px/1.3 Inter, sans-serif; font-variant-numeric: tabular-nums; }
+.bet { border: 0; padding: 16px; margin-bottom: 20px; background: var(--surface-raised); align-items: center; }
+.bet > div { min-width: 0; }
+.bet small { margin-bottom: 6px; }
+.bet strong { display: block; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.bet > b { font: 800 28px/1.2 Montserrat, sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.featured .bet > b { color: var(--value); }
+.arguments { font-size: 14px; line-height: 1.5; margin: 0 0 24px; }
+.arguments li { gap: 8px; margin-bottom: 8px; color: var(--text-body); overflow-wrap: anywhere; }
+.arguments li:last-child { margin-bottom: 0; }
+.arguments li:before { font-size: 12px; margin-top: 2px; }
+.card-excerpt { font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+.card-read { display: flex; justify-content: space-between; align-items: center; min-height: 48px; padding-top: 16px; margin-top: auto; border-top: 1px solid var(--border); font-size: 14px; font-weight: 500; gap: 16px; }
+.card-read .icon { width: 18px; height: 18px; }
+.result { display: inline-flex; align-items: center; margin: 0; font: 500 12px/1.4 Inter, sans-serif; padding: 4px 8px; border-radius: 2px; white-space: nowrap; }
+.result-PLUS { color: var(--pos); background: #5fd7a814; }
+.result-MINUS { color: var(--neg); background: #f0716a14; }
+.result-VOID { color: var(--text-body); background: var(--surface-raised); }
+.byline, .breadcrumbs { font-size: 12px; line-height: 1.6; }
+.footer { padding: 40px 0 32px; }
+.footer-row { gap: 32px; margin-bottom: 32px; }
+.footer-row > p { font-size: 12px; line-height: 1.7; display: block; }
+.footer nav { gap: 24px; font-size: 12px; }
+.footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
+.notice { padding: 16px 0 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: transparent; align-items: flex-start; gap: 16px; }
+.notice b { background: transparent; border: 1px solid var(--border-control); border-radius: 2px; padding: 2px 4px; font-size: 12px; line-height: 1.5; }
+.notice p { font-size: 12px; line-height: 1.6; }
+.skip-link { left: 16px; }
+.skip-link:focus { z-index: 20; }
+@media (min-width: 1600px) { .container { width: min(1280px, calc(100% - 160px)); } }
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+  .header-inner { gap: 24px; }
+  .header nav { gap: 20px; order: initial; width: auto; }
+  .header nav a { font-size: 13px; }
+  .header .telegram { padding: 10px 16px; }
+  .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-body { padding: 20px; }
+}
+@media (max-width: 800px) {
+  .container { width: calc(100% - 40px); }
+  .header-inner { flex-wrap: wrap; min-height: 76px; padding: 16px 0; gap: 16px; }
+  .header nav { order: 4; width: 100%; gap: 24px; }
+  .header .telegram { margin-left: auto; }
+  .header.nav-ready .site-navigation { display: none; }
+  .header.nav-ready .nav-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-control); background: transparent; color: var(--text); font-size: 14px; cursor: pointer; }
+  .header.menu-open .site-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .header nav a[aria-current]:after { display: none; }
+  .menu-lines { position: relative; width: 16px; height: 12px; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; }
+  .menu-lines:after { content: ''; position: absolute; top: 4px; width: 16px; border-top: 1.5px solid currentColor; left: 0; }
+  .main { padding-top: 32px; padding-bottom: 48px; }
+  .footer-row { flex-wrap: wrap; gap: 24px; }
+  .footer nav { gap: 20px; }
+}
+@media (max-width: 600px) {
+  .container { width: calc(100% - 32px); }
+  h2 { font-size: 26px; line-height: 1.3; }
+  .header-inner { gap: 12px; }
+  .header .logo svg { width: 31px; height: 33px; }
+  .header .logo { gap: 8px; }
+  .header .logo b { font-size: 22px; }
+  .header .telegram { font-size: 12px; gap: 6px; min-height: 44px; padding: 8px 10px; }
+  .header .telegram .icon { width: 16px; height: 16px; }
+  .header.nav-ready .nav-toggle { padding: 8px 10px; font-size: 0; width: 44px; }
+  .header.nav-ready .nav-toggle > span:last-child { display: none; }
+  .card-grid { grid-template-columns: minmax(0, 1fr); }
+  .match-card h3 { font-size: 23px; }
+  .card-body { padding: 24px; }
+  .footer-row > p { display: none; }
+  .footer nav { width: 100%; gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .text-link:hover .icon { transform: none; }
+}
+
+/* The original horizontal assembly is extracted from the supplied brand PDF. */
+.header { background: var(--surface); }
+.header-inner { min-height: 96px; }
+.logo { display: inline-flex; flex-shrink: 0; gap: 0; }
+.logo img { display: block; width: 152px; height: auto; }
+.footer { background: var(--surface); }
+.primary:hover { background: var(--text-heading); }
+@media (max-width: 800px) {
+  .header-inner { min-height: 80px; padding: 16px 0; }
+  .logo img { width: 128px; }
+}
+@media (max-width: 380px) {
+  .header .telegram { display: none; }
+  .header .nav-toggle { margin-left: auto; }
+}

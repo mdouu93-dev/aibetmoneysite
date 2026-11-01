@@ -1,0 +1,25 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.seo_title | default: page.title | escape }} · {% endif %}AiBet Money</title>
+<meta name="description" content="{{ page.seo_description | default: page.excerpt | default: page.description | default: site.data.settings.seo_description | strip_html | escape }}">
+{% if page.noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<link rel="canonical" href="{{ page.url | absolute_url }}"><meta property="og:site_name" content="AiBet Money"><meta property="og:title" content="{{ page.title | default: site.title | escape }}"><meta property="og:description" content="{{ page.excerpt | default: site.data.settings.seo_description | strip_html | escape }}"><meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:type" content="{% if page.layout == 'article' %}article{% else %}website{% endif %}">{% if page.cover_image and page.cover_image != '' %}<meta property="og:image" content="{{ page.cover_image | absolute_url | escape }}">{% endif %}
+<link rel="icon" href="{{ '/assets/brand/mark.png' | relative_url }}" type="image/png">
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/components.css' | relative_url }}">
+{% if page.home %}<link rel="stylesheet" href="{{ '/assets/home.css' | relative_url }}">{% endif %}
+<script src="{{ '/assets/site.js' | relative_url }}" defer></script>
+</head><body{% if page.home %} class="home-page"{% endif %}><header class="header"><div class="container header-inner">
+{% include logo.html %}
+<nav id="site-navigation" class="site-navigation" aria-label="Навигация">
+  <a href="{{ '/football/' | relative_url }}"{% if page.sport == 'FOOTBALL' %} aria-current="page"{% endif %}>Футбол</a>
+  <a href="{{ '/hockey/' | relative_url }}"{% if page.sport == 'HOCKEY' %} aria-current="page"{% endif %}>Хоккей</a>
+  <a href="{{ '/methodology/' | relative_url }}"{% if page.permalink == '/methodology/' %} aria-current="page"{% endif %}>Методология</a>
+  <a href="{{ '/about/' | relative_url }}"{% if page.permalink == '/about/' %} aria-current="page"{% endif %}>О проекте</a>
+</nav>
+<a class="button secondary telegram" href="{{ site.data.settings.telegram_url | escape }}" target="_blank" rel="noopener noreferrer">Telegram {% include icon.html name='arrow-up-right' %}</a>
+<button class="nav-toggle" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="Открыть меню"><span class="menu-lines" aria-hidden="true"></span><span>Меню</span></button>
+</div></header>
+<a href="#content" class="skip-link">К содержимому</a><main id="content" class="container main">{{ content }}</main>
+<footer class="footer"><div class="container"><div class="footer-row">{% include logo.html %}<p>{{ site.data.settings.footer_description | escape | newline_to_br }}</p><nav aria-label="Информация"><a href="{{ '/contacts/' | relative_url }}">Контакты</a><a href="{{ '/methodology/' | relative_url }}">Методология</a><a href="{{ '/admin/' | relative_url }}">Админка</a></nav></div><div class="notice"><b>18+</b><p>{{ site.data.settings.disclaimer | escape }}</p></div></div></footer>
+</body></html>

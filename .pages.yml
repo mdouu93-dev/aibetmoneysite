@@ -1,0 +1,273 @@
+media:
+  input: assets/media
+  output: /assets/media
+  extensions: [jpg, jpeg, png, webp]
+  rename: safe
+
+content:
+  - name: analyses
+    label: Разборы матчей
+    type: collection
+    path: _analyses
+    format: yaml-frontmatter
+    exclude: [README.md]
+    filename: "{fields.slug}.md"
+    view:
+      primary: title
+      fields: [title, sport, tournament, published, published_at]
+      sort: published_at
+      order: desc
+    fields:
+      - name: title
+        label: Заголовок
+        type: string
+        required: true
+      - name: slug
+        label: Адрес статьи
+        type: string
+        required: true
+        description: "Латиница и дефисы, например lille-lens-2026-11-01. Имя существующего файла само от изменения этого поля не меняется."
+        pattern:
+          regex: "^[a-z0-9]+(-[a-z0-9]+)*$"
+          message: Только латинские буквы, цифры и одиночные дефисы
+      - name: published
+        label: Показывать на сайте
+        type: boolean
+        default: false
+        description: "Включи для публикации. Выключенный материал не показывается на сайте, но его файл в публичном GitHub остаётся доступен."
+      - name: sport
+        label: Вид спорта
+        type: select
+        default: FOOTBALL
+        required: true
+        options:
+          values:
+            - name: FOOTBALL
+              label: Футбол
+            - name: HOCKEY
+              label: Хоккей
+      - name: featured
+        label: Главный разбор на главной
+        type: boolean
+        default: false
+        description: "Отметь материал для крупного блока разборов на главной. Если отмечено несколько — показывается самый новый. Если ничего не отмечено — последний опубликованный разбор."
+      - name: tournament
+        label: Турнир
+        type: string
+        required: true
+      - name: home_team
+        label: Хозяева
+        type: string
+        required: true
+      - name: away_team
+        label: Гости
+        type: string
+        required: true
+      - name: match_date
+        label: Начало матча — по Москве
+        type: date
+        required: true
+        default: ""
+        description: Выбирай московское время. Часовой пояс сборки сайта — Europe/Moscow.
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm
+      - name: excerpt
+        label: Краткое вступление
+        type: text
+        required: true
+      - name: cover_image
+        label: Обложка
+        type: image
+        description: "Показывается в статье и на карточке главной. Для карточек лучше горизонтальное изображение 16:9; края могут обрезаться."
+      - name: cover_alt
+        label: Описание обложки
+        type: string
+      - name: takeaways
+        label: Ключевые факты
+        type: string
+        list: true
+        description: Добавь до четырёх коротких пунктов.
+      - name: body
+        label: Текст разбора
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: true
+      - name: stats
+        label: Таблица статистики
+        type: object
+        list: true
+        fields:
+          - name: metric
+            label: Показатель
+            type: string
+            required: true
+          - name: home
+            label: Хозяева
+            type: string
+            required: true
+          - name: away
+            label: Гости
+            type: string
+            required: true
+      - name: odds_home
+        label: Коэффициент П1
+        type: number
+        options: { min: 1.01, max: 1000 }
+      - name: odds_draw
+        label: Коэффициент X
+        type: number
+        options: { min: 1.01, max: 1000 }
+      - name: odds_away
+        label: Коэффициент П2
+        type: number
+        options: { min: 1.01, max: 1000 }
+      - name: bet_market
+        label: Аналитический выбор
+        type: string
+      - name: bet_odds
+        label: Коэффициент выбора
+        type: number
+        options: { min: 1.01, max: 1000 }
+      - name: arguments
+        label: Аргументы карточки
+        type: string
+        list: true
+        description: На карточке выводятся первые три аргумента.
+      - name: bet_result
+        label: Результат выбора
+        type: select
+        default: PENDING
+        options:
+          values:
+            - name: PENDING
+              label: Ожидается
+            - name: PLUS
+              label: Плюс
+            - name: MINUS
+              label: Минус
+            - name: VOID
+              label: Возврат
+      - name: home_score
+        label: Итоговый счёт хозяев
+        type: string
+        pattern: "^(0|[1-9][0-9]{0,2})?$"
+        description: Целое число. Оставь пустым до завершения матча.
+      - name: away_score
+        label: Итоговый счёт гостей
+        type: string
+        pattern: "^(0|[1-9][0-9]{0,2})?$"
+      - name: post_match
+        label: Послематчевый комментарий
+        type: text
+      - name: author
+        label: Автор
+        type: string
+        default: Аналитический отдел AiBet Money
+        required: true
+      - name: published_at
+        label: Первая дата публикации
+        type: date
+        required: true
+        description: При дальнейших правках оставляй исходную дату.
+        options:
+          format: yyyy-MM-dd
+      - name: updated_at
+        label: Дата обновления
+        type: date
+        description: Обновляй дату при существенных правках.
+        options:
+          format: yyyy-MM-dd
+      - name: seo_title
+        label: SEO-заголовок
+        type: string
+        description: Необязательно. Пусто — используется обычный заголовок.
+      - name: seo_description
+        label: SEO-описание
+        type: text
+        description: Необязательно. Пусто — используется краткое вступление.
+
+  - name: site_settings
+    label: Настройки сайта
+    type: file
+    path: _data/settings.yml
+    format: yaml
+    fields:
+      - name: telegram_url
+        label: Telegram-канал
+        type: string
+        required: true
+        pattern: "^https://(t\\.me|telegram\\.me)/[A-Za-z0-9_]+/?$"
+      - name: calculator_url
+        label: Ссылка на калькулятор
+        type: string
+        pattern: "^(|https://[^\\s]+)$"
+        description: Необязательно. Пустое поле скрывает блок калькулятора.
+      - name: hero_title
+        label: Главный заголовок
+        type: text
+        required: true
+      - name: hero_description
+        label: Текст под главным заголовком
+        type: text
+        required: true
+      - name: approach_steps
+        label: Три блока — наш подход
+        type: object
+        list: true
+        description: На главной показываются первые три блока.
+        fields:
+          - { name: title, label: Заголовок блока, type: string, required: true }
+          - { name: text, label: Описание, type: text, required: true }
+      - name: channel_title
+        label: Заголовок блока Telegram
+        type: text
+        required: true
+      - name: channel_description
+        label: Описание блока Telegram
+        type: text
+        required: true
+      - name: seo_description
+        label: Описание сайта для поиска
+        type: text
+        required: true
+      - name: footer_description
+        label: Подпись в подвале
+        type: text
+      - name: disclaimer
+        label: Предупреждение 18+
+        type: text
+        required: true
+
+  - name: about
+    label: О проекте
+    type: file
+    path: about.md
+    format: yaml-frontmatter
+    fields:
+      - { name: layout, type: string, hidden: true, default: info }
+      - { name: permalink, type: string, hidden: true, default: /about/ }
+      - { name: title, label: Заголовок, type: string, required: true }
+      - { name: body, label: Текст, type: rich-text }
+  - name: methodology
+    label: Методология
+    type: file
+    path: methodology.md
+    format: yaml-frontmatter
+    fields:
+      - { name: layout, type: string, hidden: true, default: info }
+      - { name: permalink, type: string, hidden: true, default: /methodology/ }
+      - { name: title, label: Заголовок, type: string, required: true }
+      - { name: body, label: Текст, type: rich-text }
+  - name: contacts
+    label: Контакты
+    type: file
+    path: contacts.md
+    format: yaml-frontmatter
+    fields:
+      - { name: layout, type: string, hidden: true, default: info }
+      - { name: permalink, type: string, hidden: true, default: /contacts/ }
+      - { name: title, label: Заголовок, type: string, required: true }
+      - { name: body, label: Текст, type: rich-text }
